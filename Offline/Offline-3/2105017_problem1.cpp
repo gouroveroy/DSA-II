@@ -36,6 +36,10 @@ public:
         buildMatrix();
     }
 
+    /**
+     * The Floyd-Warshall algorithm is used to find the shortest path between all pairs of vertices in
+     * a weighted graph.
+     */
     void floydWarshall()
     {
         for (int k = 1; k <= vertices; k++)
