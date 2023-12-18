@@ -9,6 +9,10 @@ class FloydWarshall
     vector<vector<int>> shortestPath;
     int vertices, thresholdCost;
 
+    /**
+     * The function "buildMatrix" initializes the shortestPath matrix by setting the diagonal elements
+     * to 0 and assigning the weights of the edges to the corresponding positions in the matrix.
+     */
     void buildMatrix()
     {
         for (int i = 1; i <= vertices; i++)
@@ -27,6 +31,19 @@ class FloydWarshall
     }
 
 public:
+    /**
+     * The FloydWarshall function initializes the Floyd-Warshall algorithm to find the shortest path
+     * between all pairs of vertices in a graph.
+     * 
+     * @param graph The "graph" parameter is a vector of pairs, where each pair consists of an integer
+     * and another pair of integers. The first integer represents the weight or cost of an edge in the
+     * graph, and the second pair represents the two vertices connected by that edge.
+     * @param vertices The parameter "vertices" represents the number of vertices in the graph.
+     * @param cost The "cost" parameter in the FloydWarshall function represents the threshold cost for
+     * considering a path in the graph. It is used to determine whether a path between two vertices is
+     * considered in the shortest path calculation. Any path with a cost greater than the threshold
+     * cost will be ignored.
+     */
     FloydWarshall(vector<pair<int, pair<int, int>>> &graph, int vertices, int cost)
     {
         this->graph = graph;
@@ -36,6 +53,10 @@ public:
         buildMatrix();
     }
 
+    /**
+     * The Floyd-Warshall algorithm is used to find the shortest path between all pairs of vertices in
+     * a weighted graph.
+     */
     void floydWarshall()
     {
         for (int k = 1; k <= vertices; k++)
@@ -53,6 +74,10 @@ public:
         }
     }
 
+    /**
+     * The function `printCity` prints the cities that have the minimum number of connections below a
+     * given threshold cost.
+     */
     void printCity()
     {
         vector<pair<int, int>> city;
@@ -85,6 +110,9 @@ public:
         cout << endl;
     }
 
+    /**
+     * The function "printMatrix" prints the elements of a matrix, replacing the value of INF with 'I'.
+     */
     void printMatrix()
     {
         for (int i = 1; i <= vertices; i++)
