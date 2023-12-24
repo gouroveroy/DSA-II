@@ -8,6 +8,7 @@ class FordFulkerson
     vector<bool> bfsVisited, dfsVisited;
     int vertices, source, sink, maxFlow;
 
+    // The `memset()` function is a helper function used in the `FordFulkerson` class. It is used to initialize the `parent`, `inflow`, `outflow`, `bfsVisited`, and `dfsVisited` vectors with their initial values.
     void memset()
     {
         parent.resize(vertices + 1);
@@ -17,6 +18,7 @@ class FordFulkerson
         dfsVisited.assign(vertices + 1, false);
     }
 
+    // The `BFS()` function in the `FordFulkerson` class is used to perform a Breadth-First Search (BFS) traversal on the residual graph to find an augmenting path from the source vertex to the sink vertex. Here's a step-by-step explanation of what the function does:
     bool BFS()
     {
         bfsVisited.assign(vertices + 1, false);
@@ -46,6 +48,7 @@ class FordFulkerson
         return bfsVisited[sink];
     }
 
+    // The `DFS` function in the `FordFulkerson` class is used to perform a Depth-First Search (DFS) traversal on the residual graph. It starts at a given vertex and recursively explores all the vertices reachable from it.
     void DFS(int vertex)
     {
         dfsVisited[vertex] = true;
@@ -65,6 +68,7 @@ class FordFulkerson
     }
 
 public:
+    // The `FordFulkerson` constructor initializes the `residualGraph`, `vertices`, `source`, and `sink` variables of the `FordFulkerson` class. It takes in a `residualGraph` which is a vector of vectors of pairs representing the residual graph, `vertices` which is the number of vertices in the graph, `source` which is the source vertex, and `sink` which is the sink vertex.
     FordFulkerson(vector<vector<pair<int, int>>> &residualGraph, int vertices, int source, int sink)
     {
         this->residualGraph = residualGraph;
@@ -74,6 +78,7 @@ public:
         memset();
     }
 
+    // The `fordFulkerson()` function implements the Ford-Fulkerson algorithm to find the maximum flow in a flow network. Here's a step-by-step explanation of what the function does:
     void fordFulkerson()
     {
         int x;
@@ -142,6 +147,7 @@ public:
         }
     }
 
+    // The `maximumNodeFlow()` function is used to find the node in the graph with the maximum flow.
     pair<int, int> maximumNodeFlow()
     {
         fordFulkerson();
@@ -162,6 +168,7 @@ public:
         return {maxNodeFlow, maxInOutFlow};
     }
 
+    // The `minCut()` function in the `FordFulkerson` class is used to find the minimum cut in the flow network. Here's a step-by-step explanation of what the function does:
     pair<pair<vector<int>, vector<int>>, int> minCut()
     {
         fordFulkerson();
