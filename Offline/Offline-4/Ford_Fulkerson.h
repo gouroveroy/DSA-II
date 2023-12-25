@@ -79,9 +79,8 @@ public:
     }
 
     // The `fordFulkerson()` function implements the Ford-Fulkerson algorithm to find the maximum flow in a flow network. Here's a step-by-step explanation of what the function does:
-    void fordFulkerson()
+    int fordFulkerson()
     {
-        int x;
         int maxPathFlow = INT_MIN;
         maxFlow = 0;
         while (BFS())
@@ -145,6 +144,7 @@ public:
             }
             maxFlow += minPathFlow;
         }
+        return maxFlow;
     }
 
     // The `maximumNodeFlow()` function is used to find the node in the graph with the maximum flow.
