@@ -44,16 +44,6 @@ int main()
         graph[i].push_back({m + n + 1, 1});
     }
 
-    // for(int i = 0; i < m + n + 2; i++)
-    // {
-    //     cout << "Node " << i << ":";
-    //     for(auto &edge : graph[i])
-    //     {
-    //         cout << "(" << edge.first << " " << edge.second << ") ";
-    //     }
-    //     cout << endl;
-    // }
-
     FordFulkerson ff(graph, m + n + 2, 0, m + n + 1);
     cout << ff.fordFulkerson() << endl;
     return 0;

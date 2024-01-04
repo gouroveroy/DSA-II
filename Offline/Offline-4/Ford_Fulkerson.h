@@ -107,7 +107,7 @@ public:
                 {
                     if (edge.first == v)
                     {
-                        inflow[v] += edge.second;
+                        inflow[v] += minPathFlow;
                         outflow[u] += minPathFlow;
                         break;
                     }
