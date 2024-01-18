@@ -81,7 +81,6 @@ public:
     // The `fordFulkerson()` function implements the Ford-Fulkerson algorithm to find the maximum flow in a flow network. Here's a step-by-step explanation of what the function does:
     int fordFulkerson()
     {
-        int maxPathFlow = INT_MIN;
         maxFlow = 0;
         while (BFS())
         {
@@ -152,7 +151,7 @@ public:
     {
         fordFulkerson();
         int maxInOutFlow = INT_MIN;
-        int maxNodeFlow;
+        int maxNodeFlow = source;
         for (int i = 1; i <= vertices; i++)
         {
             if (i != source && i != sink)
@@ -164,7 +163,7 @@ public:
                 }
             }
         }
-        maxInOutFlow = max(inflow[maxNodeFlow], outflow[maxInOutFlow]);
+        maxInOutFlow = max(inflow[maxNodeFlow], outflow[maxNodeFlow]);
         return {maxNodeFlow, maxInOutFlow};
     }
 

@@ -151,7 +151,7 @@ public:
     {
         fordFulkerson();
         int maxInOutFlow = INT_MIN;
-        int maxNodeFlow;
+        int maxNodeFlow = source;
         for (int i = 1; i <= vertices; i++)
         {
             if (i != source && i != sink)
@@ -163,7 +163,7 @@ public:
                 }
             }
         }
-        maxInOutFlow = max(inflow[maxNodeFlow], outflow[maxInOutFlow]);
+        maxInOutFlow = max(inflow[maxNodeFlow], outflow[maxNodeFlow]);
         return {maxNodeFlow, maxInOutFlow};
     }
 
