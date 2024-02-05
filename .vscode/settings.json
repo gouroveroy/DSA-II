@@ -60,6 +60,7 @@
     "MLTable": "yaml",
     "*.py": "python",
     "*.html": "html",
+    "*.ejs": "ejs",
     "iostream": "cpp"
   }
 }
