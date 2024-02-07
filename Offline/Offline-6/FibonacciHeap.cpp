@@ -319,7 +319,7 @@ public:
             cout << "Key is not found" << endl;
             return;
         }
-        increase_key(value, 1000011);
+        increase_key(value, numeric_limits<K>::max());
         extract_max();
         nodesByValue.erase(value);
     }

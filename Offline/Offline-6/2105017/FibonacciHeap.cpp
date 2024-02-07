@@ -270,11 +270,17 @@ public:
             consolidate();
         }
         nodeCount--;
+        nodesByValue.erase(max->data.second);
         return max->data;
     }
 
     void increase_key(V value, K newKey)
     {
+        if (nodesByValue.find(value) == nodesByValue.end())
+        {
+            cout << "Key is not found" << endl;
+            return;
+        }
         Node<K, V> *newNode = nodesByValue[value];
         if (newNode != NULL)
         {
@@ -304,11 +310,6 @@ public:
                 cout << "Key is same as the previous key" << endl;
             }
         }
-
-        else
-        {
-            cout << "Priority queue is empty" << endl;
-        }
     }
 
     void Delete(V value)
@@ -318,8 +319,9 @@ public:
             cout << "Key is not found" << endl;
             return;
         }
-        increase_key(value, 100001);
+        increase_key(value, numeric_limits<K>::max());
         extract_max();
+        nodesByValue.erase(value);
     }
 
     FibonacciHeap<K, V> meld(FibonacciHeap<K, V> &heap1)
