@@ -1,27 +1,29 @@
-#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
 
-bool isPrime(int num)
+int main()
 {
-    if (num <= 1)
+    map<int, map<char, vector<pair<int, int>>>> report;
+
+    // Initialize report
+    for (int i = 0; i < 10; ++i)
     {
-        return false;
-    }
-    for (int i = 2; i * i <= num; i++)
-    {
-        if (num % i == 0)
+        for (char c = 'a'; c <= 'z'; ++c)
         {
-            return false;
+            // Initialize inner map
+            report[i][c] = vector<pair<int, int>>();
+
+            // Populate vector with pairs
+            for (int j = 0; j < 5; ++j)
+            {
+                report[i][c].push_back(make_pair(j, j * 10));
+            }
         }
     }
-    return true;
-}
 
-int findNextPrime(int prime)
-{
-    int nextPrime = prime;
-    while (!isPrime(nextPrime))
-    {
-        nextPrime++;
-    }
-    return nextPrime;
+    // Access and print some values
+    cout << "report[3]['c'][2].first: " << report[3]['c'][2].first << endl;
+    cout << "report[3]['c'][2].second: " << report[3]['c'][2].second << endl;
+
+    return 0;
 }

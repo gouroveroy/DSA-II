@@ -1,42 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-template <class K, class V>
+#define REHASH_COUNT 100
+
 class HashTable
 {
-    vector<list<pair<K, V>>> separateChain;
-    vector<pair<K, V>> doubleHash;
-    vector<pair<K, V>> customProbe;
-    int probCount;
-    int N;
-    int capacity;
-    int size;
-    int hashNo;
-    int chainLength;
-    int insertionCount;
-    int deletionCount;
+    vector<list<pair<string, long long>>> separateChain;
+    vector<pair<string, long long>> doubleHash;
+    vector<pair<string, long long>> customProbe;
+    long long probCount;
+    long long N;
+    long long capacity;
+    long long size;
+    long long hashNo;
+    long long chainLength;
+    long long insertionCount;
+    long long deletionCount;
+    long long collisionCount;
     char collisionStrategy;
 
-    bool isPrime(int n)
+    bool isPrime(long long num)
     {
-        if (n <= 1)
+        if (num <= 1)
         {
             return false;
         }
-
-        if (n <= 3)
+        for (int i = 2; i * i <= num; i++)
         {
-            return true;
-        }
-
-        if (n % 2 == 0 || n % 3 == 0)
-        {
-            return false;
-        }
-
-        for (int i = 5; i * i <= n; i += 6)
-        {
-            if (n % i == 0 || n % (i + 2) == 0)
+            if (num % i == 0)
             {
                 return false;
             }
@@ -44,113 +35,155 @@ class HashTable
         return true;
     }
 
-    int nextPrime(int n)
+    long long nextPrime(long long prime)
     {
-        if (n <= 1)
+        long long nextPrime = prime;
+        while (!isPrime(nextPrime))
         {
-            return 2;
+            nextPrime++;
         }
-        int prime = n;
-        bool found = false;
-        while (!found)
-        {
-            if (isPrime(prime))
-            {
-                found = true;
-            }
-            prime++;
-        }
-        return prime;
+        return nextPrime;
     }
 
-    /**
-     * The function Hash1 calculates a hash value for a given key using a combination of bitwise
-     * operations and modular arithmetic.
-     *
-     * @param key The key parameter is of type K, which represents the type of the key being hashed. It
-     * is used to calculate the hash value for the given key.
-     *
-     * @return The function `Hash1` returns an integer value, which is the hash value of the given key.
-     */
-    int Hash1(K key)
+    long long Hash1(string key)
     {
-        int p = nextPrime(2 * capacity);
-        int m = capacity;
+        long long p = 86969;
+        long long m = capacity;
 
         string word = key;
-        int l = word.size() - 1;
-        int k = 0;
+        long long l = word.size() - 1;
+        long long k = 0;
         for (char c : word)
         {
             k += ((c - 'a') * (1 << l));
             l--;
         }
 
-        int hashValue = ((2 * k + 3) % p) % m;
+        long long hashValue = ((54059 * k + 76963) % p) % m;
         return hashValue;
+
+        // long long p = 86969;
+        // long long m = capacity;
+        // int n = key.length();
+        // long long k = 0;
+        // int i = 1;
+        // for (char c : key)
+        // {
+        //     k += (c - 'a') * power(31, (n - i));
+        //     i++;
+        // }
+
+        // long long hashValue = ((54059 * k + 76963) % p) % m;
+        // return hashValue;
+
+        // const long long p = nextPrime(2 * capacity);
+        // const long long m = capacity;
+
+        // long long hashValue = 0;
+        // for (char c : key)
+        // {
+        //     hashValue = (hashValue * 31 + (c - 'a' + 1)) % p; // Using a prime multiplier and adding character value
+        // }
+
+        // return hashValue % m;
+
+        // const int p = 16777619;       // Prime number
+        // const int m = capacity; // Modulus
+
+        // long long hashValue = 0;
+        // long long power = 1;
+        // for (char c : key)
+        // {
+        //     hashValue = (hashValue + (c - 'a' + 1) * power) % m; // Using a prime multiplier and adding character value
+        //     power = (power * p) % m;                             // Update power
+        // }
+        // return hashValue;
+
+        // int hashValue = 0;
+        // for (char ch : key)
+        // {
+        //     hashValue = (hashValue * 31 + ch) % capacity;
+        // }
+        // return hashValue;
+
+        // long long hashValue = 37;
+        // int i = 0;
+        // while (key[i])
+        // {
+        //     hashValue = (hashValue * 54059) ^ (key[i] * 76963);
+        //     i++;
+        // }
+        // return (hashValue % 86969) % capacity;
+
+        // long long hash = 1315423911;
+
+        // for (std::size_t i = 0; i < key.length(); i++)
+        // {
+        //     hash ^= ((hash << 5) + key[i] + (hash >> 2));
+        // }
+
+        // return (hash & 0x7FFFFFFF) % capacity;
+
+        // long long result = 0;
+        // for (size_t i = 0; i < key.length(); ++i)
+        // {
+        //     result += key[i] * pow(31, i);
+        // }
+        // return result % capacity;
     }
 
-    /**
-     * The function Hash2 calculates a hash value for a given key using a combination of bitwise
-     * operations and modular arithmetic.
-     *
-     * @param key The key parameter is of type K, which is not specified in the code snippet. It could
-     * be any type that can be converted to a string, such as a string itself or a custom class with a
-     * conversion operator to string.
-     *
-     * @return the hash value of the given key.
-     */
-    int Hash2(K key)
+    long long Hash2(string key)
     {
-        int p = nextPrime(5 * capacity);
-        int m = capacity;
+        long long p = nextPrime(5 * capacity);
+        long long m = capacity;
 
         string word = key;
-        int l = word.size() - 1;
-        int k = 0;
+        long long l = word.size() - 1;
+        long long k = 0;
         for (char c : word)
         {
             k += ((c - 'a') * (1 << l));
             l--;
         }
 
-        int hashValue = ((5 * k + 7) % p) % m;
+        long long hashValue = ((5 * k + 7) % p) % m;
         return hashValue;
     }
 
-    int auxHash(K key)
+    long long auxHash(string key)
     {
         string word = key;
-        int l = word.size() - 1;
-        int k = 0;
+        long long l = word.size() - 1;
+        long long k = 0;
         for (char c : word)
         {
             k += ((c - 'a') * (1 << l));
             l--;
         }
 
-        float A = (sqrt(5) - 1) / 2;
-        int hashValue = floor(capacity * (k * A - floor(k * A)));
+        double A = (sqrt(5) - 1) / 2;
+        long long hashValue = floor(capacity * (k * A - floor(k * A)));
         return hashValue;
     }
 
-    void separateChaining(pair<K, V> p, int index)
+    void separateChaining(pair<string, long long> p, long long index)
     {
-        separateChain[index].push_back(p);
+        separateChain[index].push_front(p);
         size++;
     }
 
-    void doubleHashing(pair<K, V> p)
+    void doubleHashing(pair<string, long long> p)
     {
-        int hashValue = 0;
+        long long hashValue = 0;
         if (hashNo == 1)
         {
             for (int i = 0; i < capacity; i++)
             {
                 hashValue = (Hash1(p.first) + i * auxHash(p.first)) % capacity;
-                if (doubleHash[hashValue].first == K())
+                if (doubleHash[hashValue].first == "")
                 {
                     doubleHash[hashValue] = p;
+                    size++;
                     return;
                 }
             }
@@ -161,28 +194,30 @@ class HashTable
             for (int i = 0; i < capacity; i++)
             {
                 hashValue = (Hash2(p.first) + i * auxHash(p.first)) % capacity;
-                if (doubleHash[hashValue].first == K())
+                if (doubleHash[hashValue].first == "")
                 {
                     doubleHash[hashValue] = p;
+                    size++;
                     return;
                 }
             }
         }
     }
 
-    void customProbing(pair<K, V> p)
+    void customProbing(pair<string, long long> p)
     {
-        int hashValue = 0;
-        int C1 = 2;
-        int C2 = 3;
+        long long hashValue = 0;
+        long long C1 = 2;
+        long long C2 = 3;
         if (hashNo == 1)
         {
-            for (int i = 0; i < capacity; i++)
+            for (long long i = 0; i < capacity; i++)
             {
                 hashValue = (Hash1(p.first) + C1 * i * auxHash(p.first) + C2 * i * i) % capacity;
-                if (customProbe[hashValue].first == K())
+                if (customProbe[hashValue].first == "")
                 {
                     customProbe[hashValue] = p;
+                    size++;
                     return;
                 }
             }
@@ -190,26 +225,31 @@ class HashTable
 
         else
         {
-            for (int i = 0; i < capacity; i++)
+            for (long long i = 0; i < capacity; i++)
             {
                 hashValue = (Hash2(p.first) + C1 * i * auxHash(p.first) + C2 * i * i) % capacity;
-                if (customProbe[hashValue].first == K())
+                if (customProbe[hashValue].first == "")
                 {
                     customProbe[hashValue] = p;
+                    size++;
                     return;
                 }
             }
         }
     }
 
-    int averageProbCount()
+    double averageProbeCount()
     {
-        int threshold = 0.1 * capacity;
-        int searchCount = 0;
-        int count = 0;
+        double threshold = 0.1 * capacity;
+        long long searchCount = 0;
+        long long count = 0;
+        srand(time(NULL));
+        // int length = size;
+
         for (int i = 0; i < capacity; i++)
         {
-            for (auto it = separateChain[i].begin(); it != separateChain[i].end(); ++it)
+            int j = rand() % capacity;
+            for (auto it = separateChain[j].begin(); it != separateChain[j].end(); ++it)
             {
                 searchCount++;
                 find(it->first);
@@ -217,90 +257,80 @@ class HashTable
                 probCount = 0;
                 if (searchCount > threshold)
                 {
-                    return 0.1 * count / threshold;
+                    return 1.0 * count / threshold;
                 }
             }
         }
+
+        // for (int i = 0; i < capacity; i++)
+        // {
+        //     for (auto it = separateChain[i].begin(); it != separateChain[i].end(); ++it)
+        //     {
+        //         searchCount++;
+        //         find(it->first);
+        //         count += probCount;
+        //         probCount = 0;
+        //         if (searchCount > threshold)
+        //         {
+        //             return 1.0 * count / threshold;
+        //         }
+        //     }
+        // }
+        return 1.0 * count / threshold;
     }
 
-    float loadFactor()
+    double loadFactor()
     {
-        return size / capacity;
+        return 1.0 * size / capacity;
     }
 
-    void rehash(int C)
+    void rehash(long long C)
     {
-        cout << "Average probe count: " << averageProbCount() << endl;
+        cout << "Average probe count: " << averageProbeCount() << endl;
         cout << "Load factor: " << loadFactor() << endl;
-        cout << "Maximum chain length: " << C << endl;
+        cout << "Maximum chain length: " << C << endl
+             << endl;
 
         if (collisionStrategy == 's')
         {
-            vector<list<pair<K, V>>> temp = separateChain;
+            vector<list<pair<string, long long>>> temp = separateChain;
             if (C > chainLength)
             {
                 capacity = nextPrime(2 * capacity);
+                cout << capacity << endl;
             }
 
             else if (C < 0.8 * chainLength)
             {
-                if (nextPrime(int(capacity / 2) < N))
+                if (nextPrime((capacity / 2) < N))
                 {
                     return;
                 }
-                capacity = nextPrime(int(capacity / 2));
+                capacity = nextPrime((capacity / 2));
+                cout << capacity << endl;
             }
 
             separateChain.clear();
-            separateChain.resize(capacity, list<pair<K, V>>());
+            separateChain.assign(capacity, list<pair<string, long long>>());
             for (int i = 0; i < temp.size(); i++)
             {
                 for (auto it = temp[i].begin(); it != temp[i].end(); ++it)
                 {
-                    insert(it->first, it->second);
+                    hashNo == 1 ? separateChaining(*it, Hash1(it->first)) : separateChaining(*it, Hash2(it->first));
                 }
             }
         }
 
-        // else if (collisionStrategy == 'd')
-        // {
-        //     vector<pair<K, V>> temp = doubleHash;
-        //     capacity = nextPrime(2 * capacity);
-        //     doubleHash.clear();
-        //     doubleHash.resize(capacity, pair<K, V>());
-        //     for (int i = 0; i < temp.size(); i++)
-        //     {
-        //         if (temp[i].first != K())
-        //         {
-        //             insert(temp[i].first, temp[i].second);
-        //         }
-        //     }
-        // }
-
-        // else if (collisionStrategy == 'c')
-        // {
-        //     vector<pair<K, V>> temp = customProbe;
-        //     capacity = nextPrime(2 * capacity);
-        //     customProbe.clear();
-        //     customProbe.resize(capacity, pair<K, V>());
-        //     for (int i = 0; i < temp.size(); i++)
-        //     {
-        //         if (temp[i].first != K())
-        //         {
-        //             insert(temp[i].first, temp[i].second);
-        //         }
-        //     }
-        // }
-
-        cout << "Average probe count: " << averageProbCount() << endl;
+        cout << "Average probe count: " << averageProbeCount() << endl;
         cout << "Load factor: " << loadFactor() << endl;
-        cout << "Maximum chain length: " << C << endl;
+        cout << "Maximum chain length: " << C << endl
+             << endl;
     }
 
 public:
-    HashTable(int capacity = 1, int hashNo = 1, int chainLength = INT_MAX, char collisionStrategy = 's')
+    HashTable(long long capaCity = 1, long long hashNo = 1, long long chainLength = LONG_LONG_MAX, char collisionStrategy = 's')
     {
-        this->capacity = nextPrime(capacity);
+        this->capacity = nextPrime(capaCity);
         this->probCount = 0;
         this->N = capacity;
         this->hashNo = hashNo;
@@ -309,16 +339,37 @@ public:
         this->deletionCount = 0;
         this->collisionStrategy = collisionStrategy;
         this->size = 0;
-        this->separateChain.resize(capacity);
-        this->doubleHash.resize(capacity);
-        this->customProbe.resize(capacity);
+        this->collisionCount = 0;
+        this->separateChain.assign(capacity + 1, list<pair<string, long long>>());
+        this->doubleHash.assign(capacity + 1, pair<string, long long>());
+        this->customProbe.assign(capacity + 1, pair<string, long long>());
     }
 
-    void insert(K key, V value)
+    void resetProbe()
+    {
+        probCount = 0;
+    }
+
+    void resetCollision()
+    {
+        collisionCount = 0;
+    }
+
+    long long getProbe()
+    {
+        return probCount;
+    }
+
+    long long getCollision()
+    {
+        return collisionCount;
+    }
+
+    void insert(string key, long long value)
     {
         insertionCount++;
-        pair<K, V> p = make_pair(key, value);
-        int index = 0;
+        pair<string, long long> p = make_pair(key, value);
+        long long index = 0;
         if (hashNo == 1)
         {
             index = Hash1(key);
@@ -329,22 +380,42 @@ public:
             index = Hash2(key);
         }
 
+        // cout << "insert index: " << index << endl;
+
         if (collisionStrategy == 's')
         {
-            if (find(key) == V())
+            if (find(key) != 0)
             {
-                list<pair<K, V>> list = separateChain[index];
-                auto it = list.begin();
-                separateChain[index].insert(it, p);
+                // cout << "key already exists" << endl;
+                return;
+            }
+            // cout << "key not exists" << endl;
+            bool inserted = false;
+            // cout << "list size: " << separateChain[index].size() << endl;
+            if (separateChain[index].empty())
+            {
+                // cout << "key not found in insert" << endl;
+                separateChain[index].insert(separateChain[index].begin(), p);
+                // cout << "list size after insert " << separateChain[index].size() << endl;
                 size++;
+                inserted = true;
             }
 
-            else
+            if (!inserted)
             {
+                // cout << "key found in insert" << endl;
+                for (auto it = separateChain[index].begin(); it != separateChain[index].end(); ++it)
+                {
+                    if (it->first == key)
+                    {
+                        return;
+                    }
+                }
                 separateChaining(p, index);
+                collisionCount++;
             }
 
-            if (insertionCount >= 5)
+            if (insertionCount >= REHASH_COUNT)
             {
                 int maxChainLength = 0;
                 for (int i = 0; i < separateChain.size(); i++)
@@ -352,39 +423,45 @@ public:
                     maxChainLength = max(maxChainLength, int(separateChain[i].size()));
                 }
                 rehash(maxChainLength);
+                insertionCount = 0;
             }
         }
 
         else if (collisionStrategy == 'd')
         {
-            if (doubleHash[index].first == K())
+            if (doubleHash[index].second == 0)
             {
+                // cout << "hello" << endl;
                 doubleHash[index] = p;
+                size++;
             }
 
             else
             {
+                collisionCount++;
                 doubleHashing(p);
             }
         }
 
         else if (collisionStrategy == 'c')
         {
-            if (doubleHash[index].first == K())
+            if (customProbe[index].first == "")
             {
                 customProbe[index] = p;
+                size++;
             }
 
             else
             {
+                collisionCount++;
                 customProbing(p);
             }
         }
     }
 
-    void Delete(K key)
+    void Delete(string key)
     {
-        int index = 0;
+        long long index = 0;
         if (hashNo == 1)
         {
             index = Hash1(key);
@@ -396,7 +473,7 @@ public:
 
         if (collisionStrategy == 's')
         {
-            if (separateChain[index] == list<pair<K, V>>())
+            if (separateChain[index] == list<pair<string, long long>>())
             {
                 cout << "Key not found" << endl;
                 return;
@@ -409,7 +486,7 @@ public:
                     separateChain[index].erase(it);
                     deletionCount++;
                     int maxChainLength = 0;
-                    if (deletionCount > 100)
+                    if (deletionCount > REHASH_COUNT)
                     {
                         for (int i = 0; i < separateChain.size(); i++)
                         {
@@ -426,7 +503,7 @@ public:
 
         else if (collisionStrategy == 'd')
         {
-            if (doubleHash[index] == pair<K, V>())
+            if (doubleHash[index] == pair<string, long long>())
             {
                 cout << "Key not found" << endl;
                 return;
@@ -434,14 +511,14 @@ public:
 
             if (doubleHash[index].first == key)
             {
-                doubleHash[index] = pair<K, V>();
+                doubleHash[index] = pair<string, long long>();
                 return;
             }
         }
 
         else if (collisionStrategy == 'c')
         {
-            if (customProbe[index] == pair<K, V>())
+            if (customProbe[index] == pair<string, long long>())
             {
                 cout << "Key not found" << endl;
                 return;
@@ -449,16 +526,16 @@ public:
 
             if (customProbe[index].first == key)
             {
-                customProbe[index] = pair<K, V>();
+                customProbe[index] = pair<string, long long>();
                 return;
             }
         }
         size--;
     }
 
-    V find(K key)
+    long long find(string key)
     {
-        int index = 0;
+        long long index = 0;
         if (hashNo == 1)
         {
             index = Hash1(key);
@@ -469,11 +546,15 @@ public:
             index = Hash2(key);
         }
 
+        // cout << "find index: " << index << endl;
+
         if (collisionStrategy == 's')
         {
-            if (separateChain[index] == list<pair<K, V>>())
+            if (separateChain[index].empty())
             {
-                return V();
+                // cout << "Key not found in find" << endl;
+                probCount++;
+                return 0;
             }
 
             for (auto it = separateChain[index].begin(); it != separateChain[index].end(); ++it)
@@ -484,35 +565,38 @@ public:
                     return it->second;
                 }
             }
-            return V();
+            return 0;
         }
 
         else if (collisionStrategy == 'd')
         {
-            if (doubleHash[index] == pair<K, V>())
+            probCount++;
+            if (doubleHash[index] == pair<string, long long>())
             {
-                return V();
+                return 0;
             }
 
             if (doubleHash[index].first == key)
             {
                 return doubleHash[index].second;
             }
-            return V();
+            return 0;
         }
 
         else if (collisionStrategy == 'c')
         {
-            if (customProbe[index] == pair<K, V>())
+            probCount++;
+            if (customProbe[index] == pair<string, long long>())
             {
-                return V();
+                return 0;
             }
 
             if (customProbe[index].first == key)
             {
                 return customProbe[index].second;
             }
-            return V();
+            return 0;
         }
+        return 0;
     }
 };
