@@ -37,12 +37,13 @@ public:
 
     vector<string> generateRandomWords(int count, int minLength, int maxLength)
     {
-        vector<string> words;
-        for (int i = 0; i < count; ++i)
+        set<string> words;
+        while(words.size() < count)
         {
-            words.push_back(generateRandomWord(minLength, maxLength));
+            words.insert(generateRandomWord(minLength, maxLength));
         }
-        shuffle(words);
-        return words;
+        vector<string> wordsVec(words.begin(), words.end());
+        shuffle(wordsVec);
+        return wordsVec;
     }
 };
