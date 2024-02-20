@@ -66,7 +66,7 @@ public:
                 //     {
                 //         file << setw(7) << setfill(' ') << 123 << " ";
                 //     }
-                //     file << "| ";
+                    // file << "| ";
                 // }
                 // file << endl;
             }

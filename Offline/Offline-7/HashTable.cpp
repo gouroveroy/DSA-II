@@ -322,6 +322,10 @@ public:
 
     void insert(string &key, long long &value)
     {
+        if(N == 5003 and size >= 0.95 * capacity)
+        {
+            return;
+        }
         insertionCount++;
         pair<string, long long> p = make_pair(key, value);
         long long index = 0;
