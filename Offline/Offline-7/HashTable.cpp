@@ -3,6 +3,13 @@ using namespace std;
 
 #define REHASH_COUNT 100
 
+/* The above code is defining a class `HashTable` in C++. The class contains member variables such as
+vectors for separate chaining, double hashing, and custom probing, as well as various counters and
+parameters related to the hash table operations. The class likely implements different collision
+resolution strategies (separate chaining, double hashing, custom probing) for handling collisions in
+a hash table. The class may also include methods for inserting, deleting, and searching for
+key-value pairs in the hash table, as well as functions for calculating hash values and handling
+collisions. */
 class HashTable
 {
     vector<list<pair<string, long long>>> separateChain;
@@ -19,6 +26,17 @@ class HashTable
     long long collisionCount;
     char collisionStrategy;
 
+    /**
+     * The function checks if a given number is prime or not.
+     * 
+     * @param num The `num` parameter in the `isPrime` function represents the number that is being
+     * checked for primality. The function determines whether this number is a prime number or not by
+     * iterating through numbers from 2 to the square root of `num` and checking if `num` is divisible
+     * by any
+     * 
+     * @return The function `isPrime` returns a boolean value - `true` if the input number `num` is a
+     * prime number, and `false` otherwise.
+     */
     bool isPrime(long long num)
     {
         if (num <= 1)
@@ -35,6 +53,15 @@ class HashTable
         return true;
     }
 
+    /**
+     * The function `nextPrime` returns the next prime number after the input prime number.
+     * 
+     * @param prime The parameter `prime` in the `nextPrime` function represents the current prime
+     * number for which you want to find the next prime number. The function will return the smallest
+     * prime number greater than the input `prime` value.
+     * 
+     * @return The function `nextPrime` returns the next prime number after the input `prime`.
+     */
     long long nextPrime(long long prime)
     {
         long long nextPrime = prime;
@@ -45,37 +72,18 @@ class HashTable
         return nextPrime;
     }
 
+    /**
+     * The function `Hash1` calculates a hash value for a given string key using a polynomial rolling
+     * hash function.
+     * 
+     * @param key The `key` parameter in the `Hash1` function is a string that represents the input
+     * value for which you want to calculate the hash value.
+     * 
+     * @return The function `Hash1` is returning a `long long` value, which is the hash value of the
+     * input `key`.
+     */
     long long Hash1(string key)
     {
-        // long long p = 86969;
-        // long long m = capacity;
-
-        // string word = key;
-        // long long l = word.size() - 1;
-        // long long k = 0;
-        // for (char c : word)
-        // {
-        //     k += ((c - 'a') * (1 << l));
-        //     l--;
-        // }
-
-        // long long hashValue = ((54059 * k + 76963) % p) % m;
-        // return hashValue;
-
-        // long long p = 86969;
-        // long long m = capacity;
-        // int n = key.length();
-        // long long k = 0;
-        // int i = 1;
-        // for (char c : key)
-        // {
-        //     k += (c - 'a') * power(31, (n - i));
-        //     i++;
-        // }
-
-        // long long hashValue = ((54059 * k + 76963) % p) % m;
-        // return hashValue;
-
         const long long p = nextPrime(2 * capacity);
         const long long m = capacity;
 
@@ -88,23 +96,18 @@ class HashTable
         return hashValue % m;
     }
 
+    /**
+     * The function `Hash2` calculates a hash value for a given string key using a polynomial rolling
+     * hash function with prime number and modulo operations.
+     * 
+     * @param key The `key` parameter is a string that represents the input value for which we want to
+     * calculate the hash value.
+     * 
+     * @return The `Hash2` function is returning a `long long` value, which is the final hash value
+     * calculated based on the input `key`.
+     */
     long long Hash2(string key)
     {
-        // long long p = nextPrime(5 * capacity);
-        // long long m = capacity;
-
-        // string word = key;
-        // long long l = word.size() - 1;
-        // long long k = 0;
-        // for (char c : word)
-        // {
-        //     k += ((c - 'a') * (1 << l));
-        //     l--;
-        // }
-
-        // long long hashValue = ((5 * k + 7) % p) % m;
-        // return hashValue;
-
         const long long p = nextPrime(5 * capacity);
         const long long m = capacity;
 
@@ -117,6 +120,17 @@ class HashTable
         return hashValue % m;
     }
 
+    /**
+     * The function `auxHash` calculates a hash value for a given string key using a specific formula
+     * involving bitwise operations and a constant value.
+     * 
+     * @param key The `auxHash` function takes a string `key` as input and calculates a hash value
+     * based on the characters in the string. The hash value is calculated using a formula that
+     * involves the characters in the string, the size of the string, and a constant value.
+     * 
+     * @return The `auxHash` function is returning a `long long` hash value calculated based on the
+     * input `key`.
+     */
     long long auxHash(string key)
     {
         string word = key;
@@ -133,12 +147,32 @@ class HashTable
         return hashValue;
     }
 
+    /**
+     * The function `separateChaining` inserts a key-value pair into a linked list at a specific index
+     * in a separate chaining hash table.
+     * 
+     * @param p The parameter `p` is a pair consisting of a string and a long long integer.
+     * @param index The `index` parameter is used to determine the position in the separate chaining
+     * data structure where the pair `p` will be inserted. It helps in organizing the key-value pairs
+     * into different linked lists based on their hash values.
+     */
     void separateChaining(pair<string, long long> p, long long index)
     {
         separateChain[index].push_front(p);
         size++;
     }
 
+    /**
+     * The function `doubleHashing` implements double hashing to insert a key-value pair into a hash
+     * table with collision resolution.
+     * 
+     * @param p The parameter `p` is a pair containing a string and a long long value.
+     * 
+     * @return In the given code snippet, the `return` statement is used to exit the `doubleHashing`
+     * function after inserting the pair `p` into the `doubleHash` array at the calculated `hashValue`
+     * index. The `return` statement is used to immediately exit the function once the insertion is
+     * done, without continuing the loop iterations.
+     */
     void doubleHashing(pair<string, long long> p)
     {
         long long hashValue = 0;
@@ -173,6 +207,18 @@ class HashTable
         }
     }
 
+    /**
+     * The function customProbing implements custom probing technique for resolving collisions in a
+     * hash table.
+     * 
+     * @param p The function `customProbing` takes a pair consisting of a string and a long long value
+     * as input. The pair is represented as `pair<string, long long> p`. The string represents the key
+     * for hashing, and the long long value is associated with that key.
+     * 
+     * @return In the `customProbing` function, if a suitable empty slot is found in the `customProbe`
+     * array for the given pair `p`, the pair `p` is inserted into that slot, and then the function
+     * returns.
+     */
     void customProbing(pair<string, long long> p)
     {
         long long hashValue = 0;
@@ -322,7 +368,7 @@ public:
 
     void insert(string &key, long long &value)
     {
-        if(N == 5003 and size >= 0.95 * capacity)
+        if(N < 8000 and size >= 0.95 * capacity)
         {
             return;
         }

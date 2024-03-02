@@ -25,7 +25,6 @@ public:
         file << setfill(' ');
         file << "|            |                   | Hash Function 1 | Hash Function 2 |" << endl;
         file << "|            |                   |___________________________________|" << endl;
-        // file << "|         |                                             Hash       | Collision         |                 |                 |" << endl;
         file << "| Table Size | Resolution Method | Colls. | Probes | Colls. | Probes |" << endl;
         file << "|" << setw(69) << setfill('_') << "|" << endl;
         file << setfill(' ');
@@ -57,9 +56,6 @@ public:
                 }
 
                 file << setw(7) << setfill(' ') << report[size[i]][ch][0].first << " " << fixed << setprecision(3) << report[size[i]][ch][0].second << " | " << setw(7) << setfill(' ') << report[size[i]][ch][1].first << " " << fixed << setprecision(3) << report[size[i]][ch][1].second << endl;
-                // file << setw(7) << setfill(' ') << report[size[i]]['d'][0].first << " " << fixed << setprecision(3) << report[size[i]]['d'][0].second << " | " << setw(7) << setfill(' ') << report[size[i]]['s'][1].first << " " << fixed << setprecision(3) << report[size[i]]['s'][1].second << endl;
-                // file << setw(7) << setfill(' ') << report[size[i]]['c'][0].first << " " << fixed << setprecision(3) << report[size[i]]['c'][0].second << " | " << setw(7) << setfill(' ') << report[size[i]]['s'][1].first << " " << fixed << setprecision(3) << report[size[i]]['s'][1].second << endl;
-
                 // for (size_t k = 0; k < 2; ++k)
                 // {
                 //     for (size_t m = 0; m < 2; ++m)
