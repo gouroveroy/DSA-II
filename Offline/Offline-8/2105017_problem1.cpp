@@ -5,6 +5,9 @@ using namespace std;
 
 int main()
 {
+    /* The code snippet you provided is reading input from a file named "input.txt" instead of standard
+    input. It redirects the standard input stream to read from this file using `freopen("input.txt",
+    "r", stdin);`. */
     freopen("input.txt", "r", stdin);
     int n, w;
     cin >> n >> w;
@@ -35,6 +38,8 @@ int main()
          << endl
          << endl;
 
+    /* This part of the code is performing a rounding experiment on the original knapsack instance.
+    Here's a breakdown of what it does for each epsilon value in the vector `epsilon`: */
     vector<double> epsilon = {0.5, 0.2, 0.1, 0.05};
     for (auto e : epsilon)
     {
