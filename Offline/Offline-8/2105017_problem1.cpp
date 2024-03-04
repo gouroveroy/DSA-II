@@ -39,16 +39,17 @@ int main()
     for (auto e : epsilon)
     {
         cout << "Rounded Instance with Eps: " << e << endl;
-        double theta = (double)(e * v_max) / (2 * n);
+        double theta = (double)(e * v_max) / (double)(2 * n);
 
         cout << "Theta: " << setprecision(15) << theta << endl;
 
         vector<int> roundValues(n + 1);
         for (int i = 1; i <= n; i++)
         {
-            roundValues[i] = (double)(value[i] / theta);
+            roundValues[i] = ceil((double)(value[i] / theta));
         }
         int maxRoundValue = *max_element(roundValues.begin(), roundValues.end());
+
         maxRoundValue = maxRoundValue * n;
         Knapsack ks(n + 1, w, weight, roundValues, maxRoundValue);
         pair<int, int> reducedInstance = ks.maxValueWeight();
