@@ -9,6 +9,7 @@ int main()
     input. It redirects the standard input stream to read from this file using `freopen("input.txt",
     "r", stdin);`. */
     freopen("input.txt", "r", stdin);
+    freopen("out.txt", "w", stdout);
     int n, w;
     cin >> n >> w;
     vector<int> weight(n + 1), value(n + 1);

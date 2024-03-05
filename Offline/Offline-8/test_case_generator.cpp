@@ -30,16 +30,17 @@ vector<Item> generateRandomItems(int numItems, int minValue, int maxValue, int m
 
 int main()
 {
+    freopen("input.txt", "w", stdout);
     int numItems = 30;   // Number of items to generate
-    int minValue = 561;  // Minimum value for an item
-    int maxValue = 563; // Maximum value for an item
-    int maxWeight = 29;  // Maximum weight for an item
-    int minWeight = 27;  // Maximum weight for an item
+    int maxValue = 2563; // Maximum value for an item
+    int minValue = 2559;  // Minimum value for an item
+    int maxWeight = 129;  // Maximum weight for an item
+    int minWeight = 111;  // Maximum weight for an item
 
     vector<Item> items = generateRandomItems(numItems, minValue, maxValue, minWeight, maxWeight);
 
     // Print the generated items
-    cout << 60 << " " << 1020 << endl;
+    cout << numItems << " " << 1020 << endl;
     for (const auto &item : items)
     {
         cout << item.value << " " << item.weight << endl;
