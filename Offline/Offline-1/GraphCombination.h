@@ -13,11 +13,11 @@ int weight(vector<pair<int, pair<int, int>>> graph)
 }
 
 // This function returns all possible graphs containing given number of edges from a given graph
-void edgeCombinations(int index, int mstEdge, vector<pair<int, pair<int, int>>> &graph, set<vector<pair<int, pair<int, int>>>> &combinatons, vector<pair<int, pair<int, int>>> &trees)
+void edgeCombinations(int index, int mstEdge, vector<pair<int, pair<int, int>>> &graph, set<vector<pair<int, pair<int, int>>>> &combinations, vector<pair<int, pair<int, int>>> &trees)
 {
     if (mstEdge == 0)
     {
-        combinatons.insert(trees);
+        combinations.insert(trees);
     }
 
     if (index >= graph.size())
@@ -26,9 +26,9 @@ void edgeCombinations(int index, int mstEdge, vector<pair<int, pair<int, int>>> 
     }
 
     trees.push_back(graph[index]);
-    edgeCombinations(index + 1, mstEdge - 1, graph, combinatons, trees);
+    edgeCombinations(index + 1, mstEdge - 1, graph, combinations, trees);
     trees.pop_back();
-    edgeCombinations(index + 1, mstEdge, graph, combinatons, trees);
+    edgeCombinations(index + 1, mstEdge, graph, combinations, trees);
 }
 
 // This function returns all possible graph with given number of edges of a graph that weighs the mst weight of the graph
