@@ -2,32 +2,30 @@
 #include "C:\Users\User\OneDrive - BUET\BOOKS 2-1\CSE-207\Offline_Online\Offline\Offline-1\DisjointSetUnion.h"
 using namespace std;
 
+int ManhattanDistance(pair<int, int> a, pair<int, int> b)
+{
+    return abs(a.first - b.first) + abs(a.second - b.second);
+}
+
 int main()
 {
-    int n, m;
-    cin >> n >> m;
-    vector<int> v;
-    vector<pair<int, pair<int, int>>> graph;
-
+    int n;
+    cin >> n;
+    vector<pair<int, int>> house;
     for (int i = 0; i < n; i++)
     {
-        int x;
-        cin >> x;
-        v.push_back(x);
+        int x, y;
+        cin >> x >> y;
+        house.push_back({x, y});
     }
-
-    int a, b, w;
-    for (int i = 0; i < m; i++)
+    vector<pair<int, pair<int, int>>> graph;
+    for (int i = 0; i < n; i++)
     {
-        cin >> a >> b >> w;
-        graph.push_back({w, {a, b}});
+        for (int j = i + 1; j < n; j++)
+        {
+            graph.push_back({ManhattanDistance(house[i], house[j]), {i, j}});
+        }
     }
-
-    for (int i = 1; i <= n; i++)
-    {
-        graph.push_back({v[i - 1], {0, i}});
-    }
-
     sort(graph.begin(), graph.end());
     DisjointSetUnion dsu(n);
     int totalCost = 0;

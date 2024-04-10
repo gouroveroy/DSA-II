@@ -124,7 +124,7 @@ int main()
     cin >> S >> D;
 
     Dijkstra dj(graph, gas_prices, N, C, S, D);
-    // This code works without running the buildStateGraph function, but I explicitly build the state graph.
+    // This code works without running the buildStateGraph function, but I explicitly built the state graph.
     dj.buildStateGraph();
     int money = dj.minMoney();
 
