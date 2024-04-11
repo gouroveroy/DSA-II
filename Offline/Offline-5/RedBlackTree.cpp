@@ -219,13 +219,13 @@ class RedBlackTree
     }
 
     /**
-     * The function `inorderSuccesor` returns the inorder successor of a given node in a binary tree.
+     * The function `inOrderSuccessor` returns the inOrder successor of a given node in a binary tree.
      *
      * @param root A pointer to the root node of the binary search tree.
      *
-     * @return the inorder successor of the given root node.
+     * @return the inOrder successor of the given root node.
      */
-    Node<I, S> *inorderSuccesor(Node<I, S> *root)
+    Node<I, S> *inOrderSuccessor(Node<I, S> *root)
     {
         Node<I, S> *newNode = root->right_child;
         while (newNode->left_child != leaf)
@@ -391,7 +391,7 @@ class RedBlackTree
         }
         else
         {
-            succPrec = inorderSuccesor(nodeToBeDeleted);
+            succPrec = inOrderSuccessor(nodeToBeDeleted);
             originalColorOfNodeToBeDeleted = succPrec->color;
             succPrecChild = succPrec->right_child;
 
@@ -475,7 +475,7 @@ class RedBlackTree
     }
 
     /**
-     * The function performs an inorder traversal of a binary tree and prints the data stored in each
+     * The function performs an inOrder traversal of a binary tree and prints the data stored in each
      * node, highlighting the color of the node.
      *
      * @param root A pointer to the root node of the binary tree.
@@ -483,14 +483,14 @@ class RedBlackTree
      * @return The function is not returning any value. It is a void function, so it does not have a
      * return statement.
      */
-    void inorderTraversalHelp(Node<I, S> *root)
+    void inOrderTraversalHelp(Node<I, S> *root)
     {
         if (root == leaf)
         {
             return;
         }
 
-        inorderTraversalHelp(root->left_child);
+        inOrderTraversalHelp(root->left_child);
         if (root->color == RED)
         {
             cout << red(root->data.first) << " => " << red(root->data.second) << endl;
@@ -501,7 +501,7 @@ class RedBlackTree
             cout << black(root->data.first) << " => " << black(root->data.second) << endl;
         }
         // cout << root->data.first << " ⇒ " << root->data.second << endl;
-        inorderTraversalHelp(root->right_child);
+        inOrderTraversalHelp(root->right_child);
     }
 
     /**
@@ -787,17 +787,17 @@ public:
     }
 
     /**
-     * The function performs an inorder traversal of a binary tree.
+     * The function performs an inOrder traversal of a binary tree.
      *
      * @return nothing (void).
      */
-    void inorderTraversal()
+    void inOrderTraversal()
     {
         if (root == leaf)
         {
             return;
         }
-        inorderTraversalHelp(root);
+        inOrderTraversalHelp(root);
     }
 
     /**

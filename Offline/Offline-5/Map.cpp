@@ -129,11 +129,11 @@ public:
     }
 
     /**
-     * The Iteration function performs an inorder traversal on a red-black tree.
+     * The Iteration function performs an inOrder traversal on a red-black tree.
      */
     void Iteration()
     {
-        rbt.inorderTraversal();
+        rbt.inOrderTraversal();
     }
 
     /**
