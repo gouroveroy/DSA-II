@@ -2,6 +2,8 @@
 #include "Node.cpp"
 using namespace std;
 
+/* The code snippet provided defines a C++ template class `FibonacciHeap` that represents a Fibonacci
+Heap data structure. Here is a breakdown of the key components of the class: */
 template <class K, class V>
 class FibonacciHeap
 {
@@ -9,12 +11,25 @@ class FibonacciHeap
     unordered_map<V, Node<K, V> *> nodesByValue;
     int nodeCount;
 
+    /**
+     * The function "make_heap" creates a new Node object and returns a pointer to it.
+     * 
+     * @return A pointer to a newly created Node object is being returned.
+     */
     Node<K, V> *make_heap()
     {
         Node<K, V> *newNode = new Node<K, V>();
         return newNode;
     }
 
+    /**
+     * The function `fibonacciLink` is used to link two nodes in a Fibonacci heap data structure.
+     * 
+     * @param x Node<K, V> pointer representing the parent node in a Fibonacci heap.
+     * @param y In the given code snippet, the parameter `y` is a pointer to a Node object of type
+     * `Node<K, V>`. This function `fibonacciLink` is used to perform a Fibonacci heap linking
+     * operation between two nodes `x` and `y`.
+     */
     void fibonacciLink(Node<K, V> *x, Node<K, V> *y)
     {
         y->left->right = y->right;
@@ -46,6 +61,9 @@ class FibonacciHeap
         x->degree++;
     }
 
+    /**
+     * The function `consolidate` consolidates nodes in a Fibonacci heap data structure.
+     */
     void consolidate()
     {
         double base = (sqrt(5) + 1.0) / 2;
@@ -121,6 +139,14 @@ class FibonacciHeap
         }
     }
 
+    /**
+     * The cut function removes a node from a Fibonacci heap and adjusts the pointers accordingly.
+     * 
+     * @param x Node<K, V> *x is a pointer to a node in a data structure.
+     * @param y In the provided code snippet, the parameter `y` is a pointer to a Node object of type
+     * `Node<K, V>`. It is used within the `cut` function to perform certain operations on the node `y`
+     * and its child nodes.
+     */
     void cut(Node<K, V> *x, Node<K, V> *y)
     {
         if (x == x->right)

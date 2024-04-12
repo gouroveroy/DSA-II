@@ -24,7 +24,8 @@ public:
      * with the default value of K().
      * @param value The value parameter is the value associated with the key in the node. It is of type
      * V, which represents the value type.
-     * @param left A pointer to the left child of the node.
+     * @param left The "left" parameter is a pointer to the left sibling of the current node in a
+     * linked list structure.
      * @param right The "right" parameter is a pointer to the right sibling of the current node in a
      * linked list structure.
      * @param child A pointer to the leftmost child of the node. If the node has no children, this
