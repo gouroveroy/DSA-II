@@ -2,10 +2,15 @@
 #include "Priority_queue.cpp"
 using namespace std;
 
-void test(Priority_queue<int, int>& pq)
+/**
+ * The function `test` reads commands from a file, performs operations on a priority queue, and outputs
+ * results accordingly.
+ */
+void test()
 {
     freopen("in.txt", "r", stdin);
     freopen("out.txt", "w", stdout);
+    Priority_queue<int, int> pq;
     string s;
     int key, value;
     while(cin >> s)
@@ -18,13 +23,13 @@ void test(Priority_queue<int, int>& pq)
 
         else if(s == "E")
         {
-            pair<int, int> emax = pq.extract_max();
-            if(emax.first == numeric_limits<int>::min())
+            pair<int, int> eMax = pq.extract_max();
+            if(eMax.first == numeric_limits<int>::min())
             {
                 cout << "Priority queue is empty" << endl;
                 continue;
             }
-            cout << emax.first << " " << emax.second << endl;
+            cout << eMax.first << " " << eMax.second << endl;
         }
 
         else if(s == "F")
@@ -74,26 +79,6 @@ void test(Priority_queue<int, int>& pq)
 
 int main()
 {
-    Priority_queue<int, int> pq, pq1;
-    // for (int i = 0, j = 0; i < 100 && j < 100; i++, j++)
-    // {
-    //     pq.insert(i, j);
-    // }
-
-    // // for (int i = 1, j = 1; i < 10 && j < 10; i++, j++)
-    // // {
-    // //     pq1.insert(i * 10, j * 10);
-    // // }
-
-    // pq.extract_max();
-    // pq.extract_max();
-    // // pq1.extract_max();
-
-    // // Priority_queue<int, int> mergedPQ = pq.meld(pq1);
-    // // pq = pq.meld(pq1);
-    // // pq.print();
-    // // pq.extract_max();
-    // pq.print();
-    test(pq);
+    test();
     return 0;
 }
