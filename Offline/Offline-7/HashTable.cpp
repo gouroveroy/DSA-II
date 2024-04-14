@@ -28,12 +28,12 @@ class HashTable
 
     /**
      * The function checks if a given number is prime or not.
-     * 
+     *
      * @param num The `num` parameter in the `isPrime` function represents the number that is being
-     * checked for primality. The function determines whether this number is a prime number or not by
+     * checked for prime or not prime. The function determines whether this number is a prime number or not by
      * iterating through numbers from 2 to the square root of `num` and checking if `num` is divisible
      * by any
-     * 
+     *
      * @return The function `isPrime` returns a boolean value - `true` if the input number `num` is a
      * prime number, and `false` otherwise.
      */
@@ -55,11 +55,11 @@ class HashTable
 
     /**
      * The function `nextPrime` returns the next prime number after the input prime number.
-     * 
+     *
      * @param prime The parameter `prime` in the `nextPrime` function represents the current prime
      * number for which you want to find the next prime number. The function will return the smallest
      * prime number greater than the input `prime` value.
-     * 
+     *
      * @return The function `nextPrime` returns the next prime number after the input `prime`.
      */
     long long nextPrime(long long prime)
@@ -75,59 +75,85 @@ class HashTable
     /**
      * The function `Hash1` calculates a hash value for a given string key using a polynomial rolling
      * hash function.
-     * 
+     *
      * @param key The `key` parameter in the `Hash1` function is a string that represents the input
      * value for which you want to calculate the hash value.
-     * 
+     *
      * @return The function `Hash1` is returning a `long long` value, which is the hash value of the
      * input `key`.
      */
+    // long long Hash1(string key)
+    // {
+    //     const long long p = nextPrime(2 * capacity);
+    //     const long long m = capacity;
+
+    //     long long hashValue = 0;
+    //     for (char c : key)
+    //     {
+    //         hashValue = (hashValue * 31 + (c - 'a' + 1)) % p;
+    //     }
+
+    //     return hashValue % m;
+    // }
     long long Hash1(string key)
     {
-        const long long p = nextPrime(2 * capacity);
-        const long long m = capacity;
-
+        const int p = 31;
+        const int m = 1e9 + 9;
         long long hashValue = 0;
+        long long p_pow = 1;
         for (char c : key)
         {
-            hashValue = (hashValue * 31 + (c - 'a' + 1)) % p;
+            hashValue = (hashValue + (c - 'a' + 1) * p_pow) % m;
+            p_pow = (p_pow * p) % m;
         }
-
-        return hashValue % m;
+        return hashValue % capacity;
     }
 
     /**
      * The function `Hash2` calculates a hash value for a given string key using a polynomial rolling
      * hash function with prime number and modulo operations.
-     * 
+     *
      * @param key The `key` parameter is a string that represents the input value for which we want to
      * calculate the hash value.
-     * 
+     *
      * @return The `Hash2` function is returning a `long long` value, which is the final hash value
      * calculated based on the input `key`.
      */
+    // long long Hash2(string key)
+    // {
+    //     const long long p = nextPrime(5 * capacity);
+    //     const long long m = capacity;
+
+    //     long long hashValue = 0;
+    //     for (char c : key)
+    //     {
+    //         hashValue = (hashValue * 31 + (c - 'a' + 1)) % p;
+    //     }
+
+    //     return hashValue % m;
+    // }
     long long Hash2(string key)
     {
-        const long long p = nextPrime(5 * capacity);
-        const long long m = capacity;
-
+        const int p = 31;
+        const int m = 1e9 + 9;
         long long hashValue = 0;
+        long long p_pow = 1;
         for (char c : key)
         {
-            hashValue = (hashValue * 31 + (c - 'a' + 1)) % p;
+            hashValue = (hashValue + (c - 'a' + 1) * p_pow) % m;
+            p_pow = (p_pow * p) % m;
         }
-
-        return hashValue % m;
+        return hashValue % capacity;
     }
 
     /**
      * The function `auxHash` calculates a hash value for a given string key using a specific formula
      * involving bitwise operations and a constant value.
-     * 
+     *
      * @param key The `auxHash` function takes a string `key` as input and calculates a hash value
      * based on the characters in the string. The hash value is calculated using a formula that
      * involves the characters in the string, the size of the string, and a constant value.
-     * 
+     *
      * @return The `auxHash` function is returning a `long long` hash value calculated based on the
      * input `key`.
      */
@@ -150,7 +176,7 @@ class HashTable
     /**
      * The function `separateChaining` inserts a key-value pair into a linked list at a specific index
      * in a separate chaining hash table.
-     * 
+     *
      * @param p The parameter `p` is a pair consisting of a string and a long long integer.
      * @param index The `index` parameter is used to determine the position in the separate chaining
      * data structure where the pair `p` will be inserted. It helps in organizing the key-value pairs
@@ -165,9 +191,9 @@ class HashTable
     /**
      * The function `doubleHashing` implements double hashing to insert a key-value pair into a hash
      * table with collision resolution.
-     * 
+     *
      * @param p The parameter `p` is a pair containing a string and a long long value.
-     * 
+     *
      * @return In the given code snippet, the `return` statement is used to exit the `doubleHashing`
      * function after inserting the pair `p` into the `doubleHash` array at the calculated `hashValue`
      * index. The `return` statement is used to immediately exit the function once the insertion is
@@ -210,11 +236,11 @@ class HashTable
     /**
      * The function customProbing implements custom probing technique for resolving collisions in a
      * hash table.
-     * 
+     *
      * @param p The function `customProbing` takes a pair consisting of a string and a long long value
      * as input. The pair is represented as `pair<string, long long> p`. The string represents the key
      * for hashing, and the long long value is associated with that key.
-     * 
+     *
      * @return In the `customProbing` function, if a suitable empty slot is found in the `customProbe`
      * array for the given pair `p`, the pair `p` is inserted into that slot, and then the function
      * returns.
@@ -368,7 +394,7 @@ public:
 
     void insert(string &key, long long &value)
     {
-        if(N < 8000 and size >= 0.95 * capacity)
+        if (N < 8000 and size >= 0.95 * capacity)
         {
             return;
         }

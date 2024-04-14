@@ -55,7 +55,7 @@ public:
                     file << "|            | Custom Probing    | ";
                 }
 
-                file << setw(7) << setfill(' ') << report[size[i]][ch][0].first << " " << fixed << setprecision(3) << report[size[i]][ch][0].second << " | " << setw(7) << setfill(' ') << report[size[i]][ch][1].first << " " << fixed << setprecision(3) << report[size[i]][ch][1].second << endl;
+                file << setw(7) << setfill(' ') << report[size[i]][ch][0].first << " " << fixed << setprecision(3) << report[size[i]][ch][0].second << " | " << setw(7) << setfill(' ') << report[size[i]][ch][1].first << " " << fixed << setprecision(3) << report[size[i]][ch][1].second << setw(7) << setfill(' ') << " | " << endl;
                 // for (size_t k = 0; k < 2; ++k)
                 // {
                 //     for (size_t m = 0; m < 2; ++m)
